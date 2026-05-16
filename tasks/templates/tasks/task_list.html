@@ -1,0 +1,64 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}Мои задачи{% endblock %}
+
+{% block content %}
+
+<div class="header">
+    <h1>Мои задачи</h1>
+    <a class="btn btn-add" href="#">+ Добавить</a>
+</div>
+
+{% for task in tasks %}
+
+    <div style="background:#f9f9f9; padding:15px; margin-bottom:10px; border-radius:8px;">
+
+        <h3>{{ task.title }}</h3>
+
+        <p>{{ task.description }}</p>
+
+        <span style="
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 12px;
+            background:
+            {% if task.status == 'done' %}#b6f2c2
+            {% elif task.status == 'in_progress' %}#ffe58f
+            {% else %}#d6e4ff
+            {% endif %}
+        ">
+            {{ task.get_status_display }}
+        </span>
+
+        <p style="font-size:12px; color:gray;">
+            Создано: {{ task.created_at }}
+        </p>
+
+        <div style="margin-top:10px;">
+            <a class="btn" style="background:#ff4d4f; color:white;" href="#">Удалить</a>
+        </div>
+
+    </div>
+
+{% empty %}
+    <p>Задач пока нет</p>
+{% endfor %}
+
+<!-- пагинация -->
+{% if is_paginated %}
+    <div style="margin-top:20px;">
+
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">← Назад</a>
+        {% endif %}
+
+        <span>Страница {{ page_obj.number }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Вперёд →</a>
+        {% endif %}
+
+    </div>
+{% endif %}
+
+{% endblock %}

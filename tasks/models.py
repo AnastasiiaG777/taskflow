@@ -17,3 +17,6 @@ class Task(models.Model):
         default='new'
     )
     created_at = models.DateTimeField('Время создания',  auto_now_add=True)
+
+    def __str__(self):
+        return self.title
