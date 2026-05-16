@@ -36,7 +36,7 @@
 
         <div style="margin-top:10px;">
             <a class="btn btn-primary" href="{% url 'task_update' task.pk %}">Редактировать</a>
-            <a class="btn" style="background:#ff4d4f; color:white;" href="#">Удалить</a>
+            <a class="btn" style="background:#ff4d4f; color:white;" href="{% url 'task_delete' task.pk%}">Удалить</a>
         </div>
 
     </div>

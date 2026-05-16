@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .forms import TaskForm
 from .models import Task
 from django.urls import reverse_lazy
@@ -23,4 +23,10 @@ class UpdateTaskView(UpdateView):
     model = Task
     form_class = TaskForm
     template_name = 'tasks/task_update.html'
+    success_url = reverse_lazy('tasks')
+
+
+class DeleteTaskView(DeleteView):
+    model = Task
+    template_name = 'tasks/task_delete.html'
     success_url = reverse_lazy('tasks')
