@@ -8,7 +8,56 @@
     <h1>Мои задачи</h1>
     <a class="btn btn-add" href="{% url 'task_create' %}">+ Добавить</a>
 </div>
+<form method="get" style="margin-bottom:20px;">
 
+    <input
+        type="text"
+        name="search"
+        placeholder="Поиск задач..."
+        value="{{ request.GET.search }}"
+        class="form-control"
+        style="margin-bottom:10px;"
+    >
+
+    <select name="status" class="form-select" style="margin-bottom:10px;">
+
+        <option value="">Все статусы</option>
+
+        <option value="new"
+            {% if request.GET.status == 'new' %}
+                selected
+            {% endif %}
+        >
+            Новая
+        </option>
+
+        <option value="in_progress"
+            {% if request.GET.status == 'in_progress' %}
+                selected
+            {% endif %}
+        >
+            В процессе
+        </option>
+
+        <option value="done"
+            {% if request.GET.status == 'done' %}
+                selected
+            {% endif %}
+        >
+            Выполнено
+        </option>
+
+    </select>
+
+    <button type="submit" class="btn btn-primary">
+        Найти
+    </button>
+
+    <a href="{% url 'tasks' %}" class="btn btn-secondary">
+    Сбросить
+    </a>
+
+</form>
 {% for task in tasks %}
 
     <div style="background:#f9f9f9; padding:15px; margin-bottom:10px; border-radius:8px;">
@@ -36,7 +85,7 @@
 
         <div style="margin-top:10px;">
             <a class="btn btn-primary" href="{% url 'task_update' task.pk %}">Редактировать</a>
-            <a class="btn" style="background:#ff4d4f; color:white;" href="{% url 'task_delete' task.pk%}">Удалить</a>
+            <a class="btn" style="background:#ff4d4f; color:white;" href="{% url 'task_delete' task.pk %}">Удалить</a>
         </div>
 
     </div>
@@ -50,13 +99,13 @@
     <div style="margin-top:20px;">
 
         {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}">← Назад</a>
+            <a href="?page={{ page_obj.previous_page_number }}&search={{ request.GET.search }}&status={{ request.GET.status }}">← Назад</a>
         {% endif %}
 
         <span>Страница {{ page_obj.number }}</span>
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Вперёд →</a>
+            <a href="?page={{ page_obj.next_page_number }}&search={{ request.GET.search }}&status={{ request.GET.status }}">Вперёд →</a>
         {% endif %}
 
     </div>
