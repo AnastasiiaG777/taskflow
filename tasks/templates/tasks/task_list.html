@@ -80,12 +80,14 @@
         </span>
 
         <p style="font-size:12px; color:gray;">
-            Создано: {{ task.created_at }}
+            Создано: {{ task.created_at }} <br>
+            Изменено: {{ task.updated_at }}
         </p>
+
 
         <div style="margin-top:10px;">
             <a class="btn btn-primary" href="{% url 'task_update' task.pk %}">Редактировать</a>
-            <a class="btn" style="background:#ff4d4f; color:white;" href="{% url 'task_delete' task.pk %}">Удалить</a>
+            <a class="btn btn-danger"  href="{% url 'task_delete' task.pk %}">Удалить</a>
         </div>
 
     </div>
